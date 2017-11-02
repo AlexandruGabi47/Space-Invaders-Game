@@ -11,90 +11,88 @@ using SpaceInvadersComponents;
 
 namespace SpaceInvadersComponents
 {
-	class AlienHorde
+	abstract class Entity	//BIG TODO-TODO
 	{
-		List<Control> AlienBoxList;
-		int AlienCount;
-		public AlienHorde(int rows, int collumns, int startingX, Form form)
-		{
-			int xPos = startingX;
-			int yPos = 20;
-			int spaceBetweenAliens = 20;
-			AlienBoxList = new List<Control>();
-			AlienCount = rows * collumns;
-			for (int i = 0; i < rows; i++)
-			{
-				for (int j = 0; j < collumns; j++)
-				{
-					//Declaring a new box
-					Control temp = new PictureBox();
-					temp.BackColor = Color.Lime;
-					temp.Location = new Point(xPos, yPos);
-					temp.Name = "Alien" + (j + i + 1).ToString();
-					temp.Size = new Size(45, 35);
-					temp.TabIndex = j + i;
-					temp.TabStop = false;
-					//Adding the box to the list
-					AlienBoxList.Add(temp);
-					xPos += 45 + spaceBetweenAliens;
-					//Adding the box to the form
-					form.Controls.Add(temp);
-				}
-				xPos = startingX;
-				yPos += 35 + spaceBetweenAliens;
-			}
-		}
+		public Form formItBelongsTo;
+		public Control ImageBox;
+	}
+	class LaserBullet
+	{
+		Form formItBelongsTo;
+		public Control ImageBox;
+		bool isGoingUp;
+		int Speed { get; set; }
 
-		public void Move()
+		public LaserBullet(Control control, Form form, bool IsGoingUp, Color color)
 		{
-			foreach (Control alien in AlienBoxList)
+			Speed = 5;
+			this.isGoingUp = IsGoingUp;
+			//Initialising the box
+			ImageBox = new PictureBox
 			{
-				alien.Location = new Point(alien.Location.X, alien.Location.Y + 2);
-			}
+				Top = control.Top + control.Height / 2,
+				Left = control.Left + control.Width / 2,
+				BackColor = color,
+				Size = new Size(3, 15),
+				TabStop = false
+			};
+			//Adding the box to the form
+			form.Controls.Add(ImageBox);
+			formItBelongsTo = form;
+		}
+		public void TickHandler()
+		{
+			if (isGoingUp) ImageBox.Top -= Speed;
+			else ImageBox.Top += Speed;
+		}
+		public bool IntersectsWith(Player obj)
+		{
+			return ImageBox.Bounds.IntersectsWith(obj.ImageBox.Bounds);
 		}
 	}
 	class Player
 	{
-		public int Health { get; private set; }
+		Form formItBelongsTo;
+		public List<LaserBullet> Lasers;   //Lasers active
 		public int Speed { get; set; }
+		public Control ImageBox;
 		//Controls
-		Keys Right, Left, Fire;
-		bool isRightPressed = false, isLeftPressed = false;
+		public Keys Right, Left, Fire;
+		public bool isRightPressed = false, isLeftPressed = false;
 
-		Control ImageBox;		//Image of the player, necessary
-		//Label ScoreBox;			//optional
-		
-		public Player(Keys left, Keys right, Keys fire, int yPos, Form form)
 		//Use this for 2 or more players
+		public Player(Keys left, Keys right, Keys fire, int yPos, Form form)
 		{
 			//Initialising the variables
-			Health = 3;
 			Speed = 2;
+			//Initialising the laser list
+			Lasers = new List<LaserBullet>();
 			//Initialising the controls
 			Left = left;
 			Right = right;
 			Fire = fire;
 			//Initialising the box
-			ImageBox = new PictureBox();
-			ImageBox.BackColor = Color.Blue;
-			ImageBox.Location = new Point(100, yPos);
-			ImageBox.Name = "Player";
-			ImageBox.Size = new Size(50, 30);
-			ImageBox.TabStop = false;
+			ImageBox = new PictureBox
+			{
+				BackColor = Color.Blue,
+				Location = new Point(form.ClientSize.Width / 2 - 50, yPos),
+				Size = new Size(50, 30),
+				TabStop = false
+			};
 			//Adding the box to the form
 			form.Controls.Add(ImageBox);
+			formItBelongsTo = form;
 		}
-		public Player(int yPos, Form form) : this(Keys.A, Keys.D, Keys.Space, yPos, form)
 		//Use this for only 1 player
-		{
-
-		}
+		public Player(int yPos, Form form) : this(Keys.A, Keys.D, Keys.Space, yPos, form) { }
 		public void TickHandler()
 		{
 			if (isRightPressed)
 				ImageBox.Left += Speed;
 			if (isLeftPressed)
 				ImageBox.Left -= Speed;
+			foreach (LaserBullet item in Lasers)
+				item.TickHandler();
 		}
 		public void KeyDownHandler(Keys key)
 		{
@@ -114,24 +112,83 @@ namespace SpaceInvadersComponents
 		}
 		public void FireLaser()
 		{
-
+			Lasers.Add(new LaserBullet(this.ImageBox, formItBelongsTo, true, Color.Cyan));
 		}
 	}
-	class LaserBullet
+	class AlienHorde
 	{
-		Control ImageBox;
-		bool isGoingUp = true;
-		public LaserBullet(Player player, Form form)
+		Form formItBelongsTo;       //Doesn't need explanation
+		public List<Control> AlienBoxList;	//Aliens
+		public List<LaserBullet> Lasers;   //Lasers active
+		public int AlienCount { get; private set; }
+		public AlienHorde(int rows, int collumns, Form form)
 		{
-			//Initialising the box
-			ImageBox = new PictureBox();
-			ImageBox.BackColor = Color.Blue;
-			//ImageBox.Location = new Point(100, yPos);
-			ImageBox.Name = "Player";
-			ImageBox.Size = new Size(50, 30);
-			ImageBox.TabStop = false;
-			//Adding the box to the form
-			form.Controls.Add(ImageBox);
+			int spaceBetweenAliens = 15;
+
+			int width = 25;
+			int height = 20;
+
+			int startingX = form.ClientSize.Width / 2 - ((width + spaceBetweenAliens) * collumns) / 2;
+			int xPos = startingX;   //Left coordinate where the row of aliens start spawning
+			int yPos = 35;          //Top coordinate where the first row of aliens start spawning
+
+			AlienBoxList = new List<Control>();
+			AlienCount = rows * collumns;
+			//Lasers
+			Lasers = new List<LaserBullet>();
+			for (int i = 0; i < rows; i++)
+			{
+				for (int j = 0; j < collumns; j++)
+				{
+					//Declaring a new box
+					Control temp = new PictureBox
+					{
+						BackColor = Color.Lime,
+						Location = new Point(xPos, yPos),
+						Size = new Size(width, height),
+						TabStop = false
+					};
+					//Adding the box to the list
+					AlienBoxList.Add(temp);
+					xPos += width + spaceBetweenAliens;
+					//Adding the box to the form
+					form.Controls.Add(temp);
+					formItBelongsTo = form;
+				}
+				xPos = startingX;
+				yPos += height + spaceBetweenAliens;
+			}
+		}
+		public void TickHandler()
+		{
+			foreach (Control alien in AlienBoxList)
+				alien.Top = alien.Location.Y + 2;
+			Random rnd = new Random();
+			Fire();
+		}
+		public void Fire()
+		{
+			Random rnd = new Random();
+			for (int i = 0; i < 5; i++)
+			{
+				if (AlienCount == 0)
+					break;
+				if (AlienCount == 1)
+					i = 4;
+				Lasers.Add(new LaserBullet(AlienBoxList[rnd.Next(0, AlienCount - 1)], formItBelongsTo, false, Color.Red));
+			}
+		}
+		public bool ItHitAnyAlien(LaserBullet obj)
+		{
+			foreach (Control item in AlienBoxList)
+				if (item.Bounds.IntersectsWith(obj.ImageBox.Bounds))
+				{
+					formItBelongsTo.Controls[formItBelongsTo.Controls.IndexOf(item)].Dispose();
+					AlienBoxList.Remove(item);
+					AlienCount--;
+					return true;
+				}
+			return false;
 		}
 	}
 }
