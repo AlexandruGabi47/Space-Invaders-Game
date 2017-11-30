@@ -7,13 +7,3 @@ c:\users\student\documents\visual studio 2015\Projects\SpaceInvadersGame\SpaceIn
 c:\users\student\documents\visual studio 2015\Projects\SpaceInvadersGame\SpaceInvadersGame\obj\Debug\SpaceInvadersGame.exe
 c:\users\student\documents\visual studio 2015\Projects\SpaceInvadersGame\SpaceInvadersGame\obj\Debug\SpaceInvadersGame.pdb
 c:\users\student\documents\visual studio 2015\Projects\SpaceInvadersGame\SpaceInvadersGame\obj\Debug\SpaceInvadersGame.FormSpaceInvaders.resources
-D:\_Programming\SpaceInvadersGame\SpaceInvadersGame\bin\Debug\SpaceInvadersGame.exe.config
-D:\_Programming\SpaceInvadersGame\SpaceInvadersGame\bin\Debug\SpaceInvadersGame.exe
-D:\_Programming\SpaceInvadersGame\SpaceInvadersGame\bin\Debug\SpaceInvadersGame.pdb
-D:\_Programming\SpaceInvadersGame\SpaceInvadersGame\obj\Debug\SpaceInvadersGame.csprojResolveAssemblyReference.cache
-D:\_Programming\SpaceInvadersGame\SpaceInvadersGame\obj\Debug\SpaceInvadersGame.FormSpaceInvaders.resources
-D:\_Programming\SpaceInvadersGame\SpaceInvadersGame\obj\Debug\SpaceInvadersGame.Properties.Resources.resources
-D:\_Programming\SpaceInvadersGame\SpaceInvadersGame\obj\Debug\SpaceInvadersGame.csproj.GenerateResource.Cache
-D:\_Programming\SpaceInvadersGame\SpaceInvadersGame\obj\Debug\SpaceInvadersGame.csproj.CoreCompileInputs.cache
-D:\_Programming\SpaceInvadersGame\SpaceInvadersGame\obj\Debug\SpaceInvadersGame.exe
-D:\_Programming\SpaceInvadersGame\SpaceInvadersGame\obj\Debug\SpaceInvadersGame.pdb

@@ -8,3 +8,13 @@ D:\_Programming\SpaceInvadersGame\SpaceInvadersGame\obj\Release\SpaceInvadersGam
 D:\_Programming\SpaceInvadersGame\SpaceInvadersGame\obj\Release\SpaceInvadersGame.csproj.CoreCompileInputs.cache
 D:\_Programming\SpaceInvadersGame\SpaceInvadersGame\obj\Release\SpaceInvadersGame.exe
 D:\_Programming\SpaceInvadersGame\SpaceInvadersGame\obj\Release\SpaceInvadersGame.pdb
+D:\_Programming\WFProjects\SpaceInvadersGame\SpaceInvadersGame\bin\Release\SpaceInvadersGame.exe.config
+D:\_Programming\WFProjects\SpaceInvadersGame\SpaceInvadersGame\bin\Release\SpaceInvadersGame.exe
+D:\_Programming\WFProjects\SpaceInvadersGame\SpaceInvadersGame\bin\Release\SpaceInvadersGame.pdb
+D:\_Programming\WFProjects\SpaceInvadersGame\SpaceInvadersGame\obj\Release\SpaceInvadersGame.csprojResolveAssemblyReference.cache
+D:\_Programming\WFProjects\SpaceInvadersGame\SpaceInvadersGame\obj\Release\SpaceInvadersGame.FormSpaceInvaders.resources
+D:\_Programming\WFProjects\SpaceInvadersGame\SpaceInvadersGame\obj\Release\SpaceInvadersGame.Properties.Resources.resources
+D:\_Programming\WFProjects\SpaceInvadersGame\SpaceInvadersGame\obj\Release\SpaceInvadersGame.csproj.GenerateResource.Cache
+D:\_Programming\WFProjects\SpaceInvadersGame\SpaceInvadersGame\obj\Release\SpaceInvadersGame.csproj.CoreCompileInputs.cache
+D:\_Programming\WFProjects\SpaceInvadersGame\SpaceInvadersGame\obj\Release\SpaceInvadersGame.exe
+D:\_Programming\WFProjects\SpaceInvadersGame\SpaceInvadersGame\obj\Release\SpaceInvadersGame.pdb
